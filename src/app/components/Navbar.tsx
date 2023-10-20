@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { HandMetal } from 'lucide-react';
-import { buttonVariants } from './button';
+import { buttonVariants } from './ui/button';
 
 const Navbar = () => {
   return (
