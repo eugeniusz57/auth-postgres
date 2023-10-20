@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../../db";
+import { hash } from "bcrypt";
 
 
 export async function GET(req: Request) {
@@ -27,21 +28,25 @@ export async function POST(req:Request) {
      return NextResponse.json({user:null , message: "User with this user name already exists"}, {status: 409} )
     }  
 
+    const hashedPassword =  await hash(password, 10);
     const newUser = await db.user1.create({
       data:{
         username,
         email,
-        password
+        password: hashedPassword
       }
     })
 
+    const {password:NewUserPassword, ...rest} = newUser;
 
-    return NextResponse.json(body);
+
+    return NextResponse.json({user: rest, message: 'User Created successfully'}, {status: 201});
 
 
 
 
   } catch (error) {
-    
+    return NextResponse.json({ message: 'Something went wrong!'}, {status: 50});
+
   }
 }
