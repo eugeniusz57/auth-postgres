@@ -16,6 +16,7 @@ import { Input } from '../ui/input';
 import Link from 'next/link';
 // import GoogleSignInButton from '@/components/ui/GoogleSignInButton';
 import { Button } from '../ui/button';
+import { signIn } from 'next-auth/react';
 
 
 
@@ -36,8 +37,8 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const signInData = await signIn('credentials')
   };
 
   return (
